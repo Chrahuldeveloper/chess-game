@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Game</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        .light-square {
+            background-color: #f0d9b5;
+        }
+
+        .dark-square {
+            background-color: #b58863;
+        }
+    </style>
+</head>
+<body class="bg-zinc-900 min-h-screen flex items-center justify-center p-6">
+
+    <div class="flex gap-8">
+
+        <div>
+            <div class="grid grid-cols-8 w-[640px] h-[640px] border-4 border-zinc-700 shadow-2xl">
+
+                <div class="light-square flex items-center justify-center text-5xl">♜</div>
+                <div class="dark-square flex items-center justify-center text-5xl">♞</div>
+                <div class="light-square flex items-center justify-center text-5xl">♝</div>
+                <div class="dark-square flex items-center justify-center text-5xl">♛</div>
+                <div class="light-square flex items-center justify-center text-5xl">♚</div>
+                <div class="dark-square flex items-center justify-center text-5xl">♝</div>
+                <div class="light-square flex items-center justify-center text-5xl">♞</div>
+                <div class="dark-square flex items-center justify-center text-5xl">♜</div>
+
+                <div class="dark-square flex items-center justify-center text-5xl">♟</div>
+                <div class="light-square flex items-center justify-center text-5xl">♟</div>
+                <div class="dark-square flex items-center justify-center text-5xl">♟</div>
+                <div class="light-square flex items-center justify-center text-5xl">♟</div>
+                <div class="dark-square flex items-center justify-center text-5xl">♟</div>
+                <div class="light-square flex items-center justify-center text-5xl">♟</div>
+                <div class="dark-square flex items-center justify-center text-5xl">♟</div>
+                <div class="light-square flex items-center justify-center text-5xl">♟</div>
+
+                <script>
+                    document.write(
+                        Array.from({ length: 32 })
+                            .map((_, i) => `
+                                <div class="${(Math.floor(i / 8) + i) % 2 ? 'dark-square' : 'light-square'} flex items-center justify-center text-5xl"></div>
+                            `)
+                            .join('')
+                    );
+                </script>
+
+                <div class="light-square flex items-center justify-center text-5xl">♙</div>
+                <div class="dark-square flex items-center justify-center text-5xl">♙</div>
+                <div class="light-square flex items-center justify-center text-5xl">♙</div>
+                <div class="dark-square flex items-center justify-center text-5xl">♙</div>
+                <div class="light-square flex items-center justify-center text-5xl">♙</div>
+                <div class="dark-square flex items-center justify-center text-5xl">♙</div>
+                <div class="light-square flex items-center justify-center text-5xl">♙</div>
+                <div class="dark-square flex items-center justify-center text-5xl">♙</div>
+
+                <div class="dark-square flex items-center justify-center text-5xl">♖</div>
+                <div class="light-square flex items-center justify-center text-5xl">♘</div>
+                <div class="dark-square flex items-center justify-center text-5xl">♗</div>
+                <div class="light-square flex items-center justify-center text-5xl">♕</div>
+                <div class="dark-square flex items-center justify-center text-5xl">♔</div>
+                <div class="light-square flex items-center justify-center text-5xl">♗</div>
+                <div class="dark-square flex items-center justify-center text-5xl">♘</div>
+                <div class="light-square flex items-center justify-center text-5xl">♖</div>
+
+            </div>
+        </div>
+
+        <div class="w-72 flex flex-col gap-4">
+
+            <div class="bg-zinc-800 rounded-xl p-4 text-white">
+                <h2 class="text-xl font-bold mb-3">Game Info</h2>
+
+                <div class="space-y-2">
+                    <p>Turn: <span class="font-semibold text-green-400">White</span></p>
+                    <p>Move: 1</p>
+                    <p>Status: Playing</p>
+                </div>
+            </div>
+
+            <div class="bg-zinc-800 rounded-xl p-4 text-white">
+                <h2 class="text-xl font-bold mb-3">Captured Black</h2>
+                <div class="flex flex-wrap gap-2 text-3xl">
+                    ♟ ♞
+                </div>
+            </div>
+
+            <div class="bg-zinc-800 rounded-xl p-4 text-white">
+                <h2 class="text-xl font-bold mb-3">Captured White</h2>
+                <div class="flex flex-wrap gap-2 text-3xl">
+                    ♙
+                </div>
+            </div>
+
+            <button
+                class="bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition">
+                New Game
+            </button>
+
+            <button
+                class="bg-zinc-700 hover:bg-zinc-600 text-white py-3 rounded-xl font-semibold transition">
+                Undo Move
+            </button>
+
+        </div>
+
+    </div>
+
+</body>
+<script src="./scripts/index.js"></script>
+</html>
