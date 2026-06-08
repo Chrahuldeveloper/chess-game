@@ -3,36 +3,34 @@ const board = document.querySelector('.grid');
 
 board.addEventListener('click', (e) => {
     const square = e.target.closest('[class*="light-square"], [class*="dark-square"]');
+    console.log(square)
     if (!square) return;
-    handleClick(square);
+    move(square)
 });
 
-function handleClick(square) {
+
+
+
+const move = (square)=>{
     const piece = square.textContent.trim();
-    const whitePieces = ['♙', '♖', '♘', '♗', '♕', '♔'];
 
     if (!selectedSquare) {
-        if (!piece || !whitePieces.includes(piece)) return;
-
         selectedSquare = square;
         square.style.outline = '4px solid yellow';
         square.style.outlineOffset = '-4px';
 
     } else {
-        if (selectedSquare === square) {
-            clearSelection();
-            return;
-        }
-
         square.textContent = selectedSquare.textContent;
         selectedSquare.textContent = '';
+        clearSelection()
 
-        clearSelection();
     }
+
 }
 
-function clearSelection() {
-    if (selectedSquare) {
+
+function clearSelection(){
+    if(selectedSquare){
         selectedSquare.style.outline = '';
         selectedSquare.style.outlineOffset = '';
         selectedSquare = null;
