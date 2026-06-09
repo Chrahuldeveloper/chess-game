@@ -8,12 +8,8 @@ board.addEventListener('click', (e) => {
     move(square)
 });
 
-
-
-
-const move = (square)=>{
+const move = (square) => {
     const piece = square.textContent.trim();
-
     if (!selectedSquare) {
         selectedSquare = square;
         square.style.outline = '4px solid yellow';
@@ -23,14 +19,12 @@ const move = (square)=>{
         square.textContent = selectedSquare.textContent;
         selectedSquare.textContent = '';
         clearSelection()
-
     }
 
 }
 
-
-function clearSelection(){
-    if(selectedSquare){
+function clearSelection() {
+    if (selectedSquare) {
         selectedSquare.style.outline = '';
         selectedSquare.style.outlineOffset = '';
         selectedSquare = null;
