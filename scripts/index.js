@@ -1,14 +1,16 @@
 const board = document.getElementById("board");
+let whiteChance = true
+let blackChance = false
 
 const pieces = [
-    "♜","♞","♝","♛","♚","♝","♞","♜",
-    "♟","♟","♟","♟","♟","♟","♟","♟",
-    "","","","","","","","",
-    "","","","","","","","",
-    "","","","","","","","",
-    "","","","","","","","",
-    "♙","♙","♙","♙","♙","♙","♙","♙",
-    "♖","♘","♗","♕","♔","♗","♘","♖"
+    "♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜",
+    "♟", "♟", "♟", "♟", "♟", "♟", "♟", "♟",
+    "", "", "", "", "", "", "", "",
+    "", "", "", "", "", "", "", "",
+    "", "", "", "", "", "", "", "",
+    "", "", "", "", "", "", "", "",
+    "♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙",
+    "♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"
 ];
 
 for (let i = 0; i < 64; i++) {
@@ -59,6 +61,8 @@ function renderBoard() {
         board.appendChild(square);
     }
 }
+
+
 board.addEventListener("click", (e) => {
     const square = e.target.closest(".light-square, .dark-square");
     if (!square) return;
@@ -66,8 +70,16 @@ board.addEventListener("click", (e) => {
     const to = Number(square.dataset.index);
 
     if (selectedSquare === null) {
-        selectedSquare = square;
-        square.classList.add("border-2", "border-green-500");
+
+        console.log(selectedSquare)
+        if (
+            (square.textContent === "♙" && whiteChance) ||
+            (square.textContent === "♟" && blackChance)
+        ) {
+            selectedSquare = square;
+            square.classList.add("border-2", "border-green-500");
+        }
+
         return;
     }
 
@@ -85,10 +97,21 @@ board.addEventListener("click", (e) => {
         return;
     }
 
+    if (pieces[to] !== "") {
+        alert("place occipied")
+        selectedSquare.classList.remove("border-2", "border-green-500");
+        selectedSquare = null;
+        return;
+    }
+
     pieces[to] = pieces[from];
     pieces[from] = "";
 
     renderBoard();
 
+    whiteChance = !whiteChance
+    blackChance = !blackChance
+
     selectedSquare = null;
+
 });
