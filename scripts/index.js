@@ -68,9 +68,8 @@ board.addEventListener("click", (e) => {
     if (!square) return;
 
     const to = Number(square.dataset.index);
-
+    
     if (selectedSquare === null) {
-
         console.log(selectedSquare)
         if (
             (square.textContent === "♙" && whiteChance) ||
@@ -85,13 +84,28 @@ board.addEventListener("click", (e) => {
 
     const from = Number(selectedSquare.dataset.index);
     const piece = pieces[from];
+    console.log(to,from)
+
+    console.log(Math.abs(to-from))
 
     let direction = piece === "♙" ? -8 : 8;
+
+    if(pieces[to] !== "" && Math.abs(to-from) === 9){
+        pieces[to] = pieces[from];
+        pieces[from] = "";
+        renderBoard()
+        selectedSquare.classList.remove("border-2", "border-green-500");
+        selectedSquare = null;
+        whiteChance = !whiteChance
+        blackChance = !blackChance
+        return;
+
+    }
 
     let validMove = (to === from + direction);
 
     if (!validMove) {
-        console.log("❌ invalid move");
+        console.log(" invalid move");
         selectedSquare.classList.remove("border-2", "border-green-500");
         selectedSquare = null;
         return;
@@ -111,7 +125,6 @@ board.addEventListener("click", (e) => {
 
     whiteChance = !whiteChance
     blackChance = !blackChance
-
     selectedSquare = null;
 
 });
