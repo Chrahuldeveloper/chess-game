@@ -63,17 +63,26 @@ function renderBoard() {
 }
 
 
+
+const clearBorder = () => {
+    if (selectedSquare != null) {
+        selectedSquare.classList.remove("border-2", "border-green-500");
+        selectedSquare = null;
+    }
+}
+
+
 board.addEventListener("click", (e) => {
     const square = e.target.closest(".light-square, .dark-square");
     if (!square) return;
 
-    const to = Number(square.dataset.index);
-    
+    const to = Number(square.dataset.index)
+
+
     if (selectedSquare === null) {
-        console.log(selectedSquare)
         if (
             (square.textContent === "♙" && whiteChance) ||
-            (square.textContent === "♟" && blackChance)
+            (square.textContent === "♟" && blackChance) || (square.textContent === "♖" && whiteChance) || (square.textContent === "♜")
         ) {
             selectedSquare = square;
             square.classList.add("border-2", "border-green-500");
@@ -84,13 +93,18 @@ board.addEventListener("click", (e) => {
 
     const from = Number(selectedSquare.dataset.index);
     const piece = pieces[from];
-    console.log(to,from)
 
-    console.log(Math.abs(to-from))
+    let validMove = false;
 
-    let direction = piece === "♙" ? -8 : 8;
+    if (piece === "♙" || piece === "♟") {
+        validMove = to === from + (piece === "♙" ? -8 : 8)
+    } else if (piece === "♖" || piece === "♜") {
+        validMove = Math.abs(to - from) % 8 === 0 || Math.floor(from / 8) === Math.floor(to / 8);
+    } else {
+        alert("invalid move")
+    }
 
-    if(pieces[to] !== "" && Math.abs(to-from) === 9){
+    if (pieces[to] !== "" && Math.abs(to - from) === 9) {
         pieces[to] = pieces[from];
         pieces[from] = "";
         renderBoard()
@@ -99,28 +113,22 @@ board.addEventListener("click", (e) => {
         whiteChance = !whiteChance
         blackChance = !blackChance
         return;
-
     }
-
-    let validMove = (to === from + direction);
 
     if (!validMove) {
         console.log(" invalid move");
-        selectedSquare.classList.remove("border-2", "border-green-500");
-        selectedSquare = null;
+        clearBorder()
         return;
     }
 
     if (pieces[to] !== "") {
         alert("place occipied")
-        selectedSquare.classList.remove("border-2", "border-green-500");
-        selectedSquare = null;
+        clearBorder()
         return;
     }
 
     pieces[to] = pieces[from];
     pieces[from] = "";
-
     renderBoard();
 
     whiteChance = !whiteChance
